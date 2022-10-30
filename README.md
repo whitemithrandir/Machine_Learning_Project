@@ -41,3 +41,18 @@ This code use a 2-layer network as shown. Unlike the binary classification netwo
 inside is an example of how to construct this network in Tensorflow. Notice the output layer uses a linear rather than a softmax activation. While it is possible to include the softmax in the output layer, it is more numerically stable if linear outputs are passed to the loss function during training. If the model is used to predict probabilities, the softmax can be applied at that point.
 
 he statements below compile and train the network. Setting from_logits=True as an argument to the loss function specifies that the output activation was linear rather than a softmax.
+
+## Multiclass Classification - V0.4
+
+In this code, I used a neural network to recognize ten handwritten digits, 0-9. This is a multiclass classification task where one of n choices is selected. Automated handwritten digit recognition is widely used today - from recognizing zip codes (postal codes) on mail envelopes to recognizing amounts written on bank checks.
+
+The neural network I used in this code is shown in the figure below.
+![image](https://user-images.githubusercontent.com/115104812/198883700-5055a1cb-4c28-4266-a514-e42eadf5e0d8.png)
+
+This has two dense layers with ReLU activations followed by an output layer with a linear activation.
+Since the images are of size  20×20 , this gives us  400  input
+The parameters have dimensions that are sized for a neural network with  25  units in layer 1,  15  units in layer 2 and  10  output units in layer 3, one for each digit
+
+Tensorflow models are built layer by layer. A layer's input dimensions  are calculated for you. You specify a layer's output dimensions and this determines the next layer's input dimension. The input dimension of the first layer is derived from the size of the input data specified in the model.fit statement below.
+
+defines a loss function, SparseCategoricalCrossentropy and indicates the softmax should be included with the loss calculation by adding from_logits=True)
