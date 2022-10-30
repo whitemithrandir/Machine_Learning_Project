@@ -32,3 +32,12 @@ The following code will define a loss function and run gradient descent to fit t
 Keras prediction was used to run the model on a sample to make a prediction. The input to be estimated is an array, so the single instance is reshaped to be two-dimensional.
 
 The output of the model is interpreted as a probability. As in the case of logistic regression, the probability is compared with a threshold to make a final estimate.
+
+
+## Multiclass - V0.3
+
+This code use a 2-layer network as shown. Unlike the binary classification networks, this network has four outputs, one for each class. Given an input example, the output with the highest value is the predicted class of the input.
+
+inside is an example of how to construct this network in Tensorflow. Notice the output layer uses a linear rather than a softmax activation. While it is possible to include the softmax in the output layer, it is more numerically stable if linear outputs are passed to the loss function during training. If the model is used to predict probabilities, the softmax can be applied at that point.
+
+he statements below compile and train the network. Setting from_logits=True as an argument to the loss function specifies that the output activation was linear rather than a softmax.
