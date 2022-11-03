@@ -56,3 +56,13 @@ The parameters have dimensions that are sized for a neural network with  25  uni
 Tensorflow models are built layer by layer. A layer's input dimensions  are calculated for you. You specify a layer's output dimensions and this determines the next layer's input dimension. The input dimension of the first layer is derived from the size of the input data specified in the model.fit statement below.
 
 defines a loss function, SparseCategoricalCrossentropy and indicates the softmax should be included with the loss calculation by adding from_logits=True)
+
+## Advice for Applying Machine Learning - V0.5
+
+When *evaluating* a linear regression model, you average the squared error difference of the predicted values and the target values.
+
+$$ J_\text{test}(\mathbf{w},b) = 
+            \frac{1}{2m_\text{test}}\sum_{i=0}^{m_\text{test}-1} ( f_{\mathbf{w},b}(\mathbf{x}^{(i)}_\text{test}) - y^{(i)}_\text{test} )^2 
+            \tag{1}
+$$
+
