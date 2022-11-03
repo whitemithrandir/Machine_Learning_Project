@@ -59,10 +59,5 @@ defines a loss function, SparseCategoricalCrossentropy and indicates the softmax
 
 ## Advice for Applying Machine Learning - V0.5
 
-When *evaluating* a linear regression model, you average the squared error difference of the predicted values and the target values.
-
-$$ J_\text{test}(\mathbf{w},b) = 
-            \frac{1}{2m_\text{test}}\sum_{i=0}^{m_\text{test}-1} ( f_{\mathbf{w},b}(\mathbf{x}^{(i)}_\text{test}) - y^{(i)}_\text{test} )^2 
-            \tag{1}
-$$
+Eğitim hatasını en aza indirmek için yüksek dereceli bir polinom modeli oluşturmuştur. Bu, sklearn'deki linear_regression fonksiyonlarından biridir.
 
