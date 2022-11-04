@@ -370,3 +370,78 @@ def eval_cat_err(y, yhat):
     err = incorrect/m
     return(err)
 
+def eval_mse(y, yhat):
+    """ 
+    Calculate the mean squared error on a data set.
+    doğrusal bir regresyon modeli için bir veri kümesindeki
+    hatayı.
+    """
+    m = len(y)
+    err = 0.0
+    for i in range(m):
+
+        err= err + (y[i]-yhat[i])**2  
+ 
+    err= err/(2*m)
+    print("error: ", err)
+    return(err)
+
+
+def plot_iterate(lambdas, models, X_train, y_train, X_cv, y_cv):
+    err_train = np.zeros(len(lambdas))
+    err_cv = np.zeros(len(lambdas))
+    for i in range(len(models)):
+        err_train[i] = eval_cat_err(y_train,np.argmax( models[i](X_train), axis=1))
+        err_cv[i] = eval_cat_err(y_cv, np.argmax( models[i](X_cv), axis=1))
+
+    fig, ax = plt.subplots(1,1,figsize=(15,8))
+
+    ax.set_title("error vs regularization",fontsize = 12)
+    ax.plot(lambdas, err_train, marker='o', label="train error", color = "blue")
+    ax.plot(lambdas, err_cv,    marker='o', label="cv error",    color = "orange")
+    ax.set_xscale('log')
+    ax.set_ylim(*ax.get_ylim())
+    ax.set_xlabel("Regularization (lambda)",fontsize = 14)
+    ax.set_ylabel("Error",fontsize = 14)
+    ax.legend()
+    fig.suptitle("Tuning Regularization",fontsize = 14)
+    ax.text(0.05,0.14,"Training Error\nlower than CV",fontsize=12, ha='left',transform=ax.transAxes,color = "blue")
+    ax.text(0.95,0.14,"Similar\nTraining, CV",    fontsize=12, ha='right',transform=ax.transAxes,color = "blue")
+    plt.show()
+
+def plt_compare(X,y, classes, simple, regularized, centers):
+    plt.close("all")
+    fig,ax = plt.subplots(1,3, figsize=(20,10))
+
+
+  #plt simple   
+    plot_cat_decision_boundary(ax[0], X, simple,  vector=True)
+    ax[0].set_title("Simple Model", fontsize=14)
+    plt_mc_data(ax[0], X,y, classes, map=dkcolors_map, legend=True, size=75)
+    ax[0].set_xlabel('x0') ; ax[0].set_ylabel("x1");
+
+  #plt regularized   
+    plot_cat_decision_boundary(ax[1], X, regularized,  vector=True)
+    ax[1].set_title("Regularized Model", fontsize=14)
+    plt_mc_data(ax[1], X,y, classes, map=dkcolors_map, legend=True, size=75)
+    ax[1].set_xlabel('x0') ; ax[0].set_ylabel("x1");
+
+  #plt ideal
+    cat_predict = lambda pt: recat(pt.reshape(1,2), centers)
+    plot_cat_decision_boundary(ax[2], X, cat_predict,  vector=False)
+    ax[2].set_title("Ideal Model", fontsize=14)
+    plt_mc_data(ax[2], X,y, classes, map=dkcolors_map, legend=True, size=75)
+    ax[2].set_xlabel('x0') ; ax[0].set_ylabel("x1");
+
+    err_s = eval_cat_err(y, simple(X))
+    err_r = eval_cat_err(y, regularized(X))
+    ax[0].text(-2.75,3,f"err_test={err_s:0.2f}", fontsize=12)
+    ax[1].text(-2.75,3,f"err_test={err_r:0.2f}", fontsize=12)
+    m = len(X)
+    y_eq  = np.zeros(m)
+    for i in range(m):
+        y_eq[i] = recat(X[i], centers)
+    err_eq = eval_cat_err(y, y_eq)
+    ax[2].text(-2.75,3,f"err_test={err_eq:0.2f}", fontsize=12)
+    plt.show()
+    
