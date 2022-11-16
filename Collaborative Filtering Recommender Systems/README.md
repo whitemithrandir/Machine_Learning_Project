@@ -6,7 +6,6 @@ The diagram below details how these vectors are learned.
 ![image](https://user-images.githubusercontent.com/115104812/202064484-523c1603-fe1e-4629-b749-f1cf4d0f4193.png)
 
 ### Collaborative filtering cost function
-
 $$
 = \frac{1}{2}\sum_{j=0}^{n_u-1} \sum_{i=0}^{n_m-1}r(i,j)*(\mathbf{w}^{(j)} \cdot \mathbf{x}^{(i)} + b^{(j)} - y^{(i,j)})^2
 +\text{regularization}
