@@ -1,5 +1,3 @@
-# Machine_Learning_Project
-
 ## Neural Networks for Handwritten Digit Recognition - V0.2
 
 Tensorflow is a machine learning package developed by Google. In 2019, Google integrated Keras into Tensorflow and released Tensorflow 2.0. Keras is a framework developed independently by François Chollet that creates a simple, layer-centric interface to Tensorflow
@@ -32,59 +30,3 @@ The following code will define a loss function and run gradient descent to fit t
 Keras prediction was used to run the model on a sample to make a prediction. The input to be estimated is an array, so the single instance is reshaped to be two-dimensional.
 
 The output of the model is interpreted as a probability. As in the case of logistic regression, the probability is compared with a threshold to make a final estimate.
-
-
-## Multiclass - V0.3
-
-This code use a 2-layer network as shown. Unlike the binary classification networks, this network has four outputs, one for each class. Given an input example, the output with the highest value is the predicted class of the input.
-
-inside is an example of how to construct this network in Tensorflow. Notice the output layer uses a linear rather than a softmax activation. While it is possible to include the softmax in the output layer, it is more numerically stable if linear outputs are passed to the loss function during training. If the model is used to predict probabilities, the softmax can be applied at that point.
-
-he statements below compile and train the network. Setting from_logits=True as an argument to the loss function specifies that the output activation was linear rather than a softmax.
-
-## Multiclass Classification - V0.4
-
-In this code, I used a neural network to recognize ten handwritten digits, 0-9. This is a multiclass classification task where one of n choices is selected. Automated handwritten digit recognition is widely used today - from recognizing zip codes (postal codes) on mail envelopes to recognizing amounts written on bank checks.
-
-The neural network I used in this code is shown in the figure below.
-![image](https://user-images.githubusercontent.com/115104812/198883700-5055a1cb-4c28-4266-a514-e42eadf5e0d8.png)
-
-This has two dense layers with ReLU activations followed by an output layer with a linear activation.
-Since the images are of size  20×20 , this gives us  400  input
-The parameters have dimensions that are sized for a neural network with  25  units in layer 1,  15  units in layer 2 and  10  output units in layer 3, one for each digit
-
-Tensorflow models are built layer by layer. A layer's input dimensions  are calculated for you. You specify a layer's output dimensions and this determines the next layer's input dimension. The input dimension of the first layer is derived from the size of the input data specified in the model.fit statement below.
-
-defines a loss function, SparseCategoricalCrossentropy and indicates the softmax should be included with the loss calculation by adding from_logits=True)
-
-## Advice for Applying Machine Learning - V0.5
-
-
-It has been observed that as the rank gets too large, the cross validation performance begins to degrade relative to the training performance.
-
-
-I trained the model over and over, increasing the degree of the polynomial with each iteration. Here, I used the scikit-learn linear regression model for speed and simplicity. My goal here is to see the difference between overfitting and underfitting.
-As the model complexity increases, the error in the trained data (blue) decreases.
-the error of cross validation data decreases initially when the model starts to fit the data but then increases as the model starts to overfit the training data (fails to generalize)
-
-As the regularization (lambda) increased, I saw that the model shifted from a high variance (over-fitting) model to a high-bias (under-fitting) model.
-I have found that when a model has high variance and is overfitting, adding more samples improves performance, but also when it has a high bias (underfit) adding more samples improves performance.
-
-I did three model tutorials with tensorflow; <p>
-      * complex model <p>
-      * simple model <p>
-      * regularization model 
-  
-The complex model worked hard to catch the outliers of each category. As a result, it miscategorized some of the cross-validation data.
-simple model has a little higher classification error on training data but does better on cross-validation data than the more complex model.
-The regularization model is slightly worse on the training set than the simple model, but better on the cross validation set.
-
-As regularization is increased, the performance of the model on the training and cross-validation data sets converge.
-
- 
-
-
-
-
-
-
