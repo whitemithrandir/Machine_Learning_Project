@@ -1,0 +1,31 @@
+lunar_lander1
+MEMORY_SIZE = 100_000     # size of memory buffer.
+GAMMA = 0.995             # discount factor.
+ALPHA = 1e-3              # learning rate.
+NUM_STEPS_FOR_UPDATE = 4  # perform a learning update every C time steps.
+num_episodes = 2000
+max_num_timesteps = 1000
+
+lunar_lander2
+MEMORY_SIZE = 100_000     # size of memory buffer.
+GAMMA = 0.65             # discount factor.
+ALPHA = 1e-3              # learning rate.
+NUM_STEPS_FOR_UPDATE = 4  # perform a learning update every C time steps.
+num_episodes = 2000
+max_num_timesteps = 1000
+
+lunar_lander3
+MEMORY_SIZE = 100_000     # size of memory buffer.
+GAMMA = 0.995             # discount factor.
+ALPHA = 1e-6              # learning rate.
+NUM_STEPS_FOR_UPDATE = 4  # perform a learning update every C time steps.
+num_episodes = 2000
+max_num_timesteps = 1000
+
+lunar_lander4
+MEMORY_SIZE = 100_000     # size of memory buffer.
+GAMMA = 0.995             # discount factor.
+ALPHA = 1e-3             # learning rate.
+NUM_STEPS_FOR_UPDATE = 8  # perform a learning update every C time steps.
+num_episodes = 2000
+max_num_timesteps = 1000
