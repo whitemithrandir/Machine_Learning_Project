@@ -20,26 +20,16 @@ with open("./bbc-text.csv", 'r') as csvfile:
     print(f"First line (header) looks like this:\n\n{csvfile.readline()}")
     print(f"Each data point looks like this:\n\n{csvfile.readline()}")
 
+"""
+- `NUM_WORDS`: Sözcük sıklığına bağlı olarak tutulacak maksimum sözcük sayısı. Varsayılanlar 1000'dir.
+- `EMBEDDING_DIM`: Yoğun gömme boyutu, modelin gömme katmanında kullanılacaktır. Varsayılanlar 16'dır.
+- `MAXLEN`: Tüm dizilerin maksimum uzunluğu. Varsayılanlar 120'dir.
+- `PADDING`: Doldurma stratejisi (her diziden önce veya sonra dolgu yapın.). Varsayılanlar 'gönder'dir.
+- `OOV_TOKEN`: text_to_sequence çağrıları sırasında kelime dağarcığı dışındaki kelimeleri değiştirmek için belirteç. Varsayılanlar "<OOV>" şeklindedir.
+- `TRAINING_SPLIT`: Eğitim için kullanılan verilerin oranı. Varsayılanlar 0,8'dir
+"""
 
-# - `NUM_WORDS`: Sözcük sıklığına bağlı olarak tutulacak maksimum sözcük sayısı. Varsayılanlar 1000'dir.
-# 
-# 
-# - `EMBEDDING_DIM`: Yoğun gömme boyutu, modelin gömme katmanında kullanılacaktır. Varsayılanlar 16'dır.
-# 
-# 
-# - `MAXLEN`: Tüm dizilerin maksimum uzunluğu. Varsayılanlar 120'dir.
-# 
-# 
-# - `PADDING`: Doldurma stratejisi (her diziden önce veya sonra dolgu yapın.). Varsayılanlar 'gönder'dir.
-# 
-# 
-# - `OOV_TOKEN`: text_to_sequence çağrıları sırasında kelime dağarcığı dışındaki kelimeleri değiştirmek için belirteç. Varsayılanlar "<OOV>" şeklindedir.
-# 
-#     
-# - `TRAINING_SPLIT`: Eğitim için kullanılan verilerin oranı. Varsayılanlar 0,8'dir
-# 
 
-# In[25]:
 
 
 NUM_WORDS = 1000
@@ -265,12 +255,14 @@ val_padded_seq = seq_and_pad(val_sentences, tokenizer, PADDING, MAXLEN)
 print(f"Padded training sequences have shape: {train_padded_seq.shape}\n")
 print(f"Padded validation sequences have shape: {val_padded_seq.shape}")
 
+"""
+* Etiketleri belirtilmeli. Unutulmaması gereken birkaç nokta: Doğrulama setinde belirli bir etiketin bulunmaması durumundan kaçınmak için belirteç oluşturucuyu tüm etiketlere sığdırılmalı.
+* Etiketlerle uğraşıldığı için asla bir OOV etiketi olmamalıdır. Önceki işlevde, sayısal diziler döndüren pad_sequences işlevini kullanıldı. Etiketlerin doldurulması gerekmediğinden burada onu kullanmayacağız, bu nedenle numpy dizilerine dönüştürmeyi kendiniz yapmanız gerekir. split_labels bağımsız değişkeni, belirli bir ayırmanın (tren veya doğrulama) etiketlerine atıfta bulunur. 
+* Bunun nedeni, işlevin kullanılan bölmeden bağımsız çalışması gerektiğidir. Keras'ın Tokenizer'ı kullanmak, 0'dan ziyade 1'den başlayan değerler verir. Keras genellikle etiketlerin 0'dan başlamasını beklediğinden, eğitim sırasında bu bir sorun teşkil eder. Bu soruna geçici bir çözüm bulmak için, son katmanınızda fazladan bir nöron kullanılabilir. modeli. Ancak bu yaklaşım oldukça hileli ve çok net değil. Bunun yerine, işlevin döndürdüğü etiketlerin her değerinden 1 çıkaracaksınız. Numpy dizilerini kullanırken, numpy vektörleştirilmiş işlemlere izin verdiğinden, bunu gerçekleştirmek için basitçe np.array - 1 gibi bir şey yapalabilir.
 
-# * Etiketleri belirtilmeli. Unutulmaması gereken birkaç nokta: Doğrulama setinde belirli bir etiketin bulunmaması durumundan kaçınmak için belirteç oluşturucuyu tüm etiketlere sığdırılmalı.
-# * Etiketlerle uğraşıldığı için asla bir OOV etiketi olmamalıdır. Önceki işlevde, sayısal diziler döndüren pad_sequences işlevini kullanıldı. Etiketlerin doldurulması gerekmediğinden burada onu kullanmayacağız, bu nedenle numpy dizilerine dönüştürmeyi kendiniz yapmanız gerekir. split_labels bağımsız değişkeni, belirli bir ayırmanın (tren veya doğrulama) etiketlerine atıfta bulunur. 
-# * Bunun nedeni, işlevin kullanılan bölmeden bağımsız çalışması gerektiğidir. Keras'ın Tokenizer'ı kullanmak, 0'dan ziyade 1'den başlayan değerler verir. Keras genellikle etiketlerin 0'dan başlamasını beklediğinden, eğitim sırasında bu bir sorun teşkil eder. Bu soruna geçici bir çözüm bulmak için, son katmanınızda fazladan bir nöron kullanılabilir. modeli. Ancak bu yaklaşım oldukça hileli ve çok net değil. Bunun yerine, işlevin döndürdüğü etiketlerin her değerinden 1 çıkaracaksınız. Numpy dizilerini kullanırken, numpy vektörleştirilmiş işlemlere izin verdiğinden, bunu gerçekleştirmek için basitçe np.array - 1 gibi bir şey yapalabilir.
+"""
 
-# In[30]:
+
 
 
 # GRADED FUNCTION: tokenize_labels
@@ -318,19 +310,17 @@ print(f"First 5 labels of the validation set should look like this:\n{val_label_
 print(f"Tokenized labels of the training set have shape: {train_label_seq.shape}\n")
 print(f"Tokenized labels of the validation set have shape: {val_label_seq.shape}\n")
 
+"""
+ Metin sınıflandırması için model seçme
+- Bu işlevin, tümü bir [Embedding](https://www.tensorflow.org/api_docs/python/tf/keras/) iletilmesi amaçlanan üç parametreye sahip olduğuna dikkat edilmeli. katmanlar/Gömme) katmanı,  muhtemelen model için ilk katman olarak kullanılankatmandır.
+- Son katman, softmax aktivasyonu ile 5 birimli (5 kategori olduğundan) Yoğun bir katman olmalıdır. - Model uygun bir kayıp fonksiyonu ve iyileştirici kullanarak da derlenmeli.
+(https://www.tensorflow.org/api_docs/python/tf/keras/layers/GlobalAveragePooling1D) ve Yoğun katmanların yanı sıra herhangi bir katmana ihtiyaç yoktur, ancak farklı mimariler denenebilir.
+- **Bu kademeli işlevi geçmek için modelin 30 dönemin altında en az %95 eğitim doğruluğuna ve %90 doğrulama doğruluğuna ulaşması gerekir.**
 
-# ## Metin sınıflandırması için model seçme
-# 
-# 
-# - Bu işlevin, tümü bir [Embedding](https://www.tensorflow.org/api_docs/python/tf/keras/) iletilmesi amaçlanan üç parametreye sahip olduğuna dikkat edilmeli. katmanlar/Gömme) katmanı,  muhtemelen model için ilk katman olarak kullanılankatmandır.
-# 
-# - Son katman, softmax aktivasyonu ile 5 birimli (5 kategori olduğundan) Yoğun bir katman olmalıdır. - Model uygun bir kayıp fonksiyonu ve iyileştirici kullanarak da derlenmeli.
-# 
-# (https://www.tensorflow.org/api_docs/python/tf/keras/layers/GlobalAveragePooling1D) ve Yoğun katmanların yanı sıra herhangi bir katmana ihtiyaç yoktur, ancak farklı mimariler denenebilir.
-# 
-# - **Bu kademeli işlevi geçmek için modelin 30 dönemin altında en az %95 eğitim doğruluğuna ve %90 doğrulama doğruluğuna ulaşması gerekir.**
+"""
 
-# In[31]:
+
+
 
 
 # GRADED FUNCTION: create_model
@@ -375,10 +365,3 @@ def plot_graphs(history, metric):
     
 plot_graphs(history, "accuracy")
 plot_graphs(history, "loss")
-
-
-# In[ ]:
-
-
-
-
