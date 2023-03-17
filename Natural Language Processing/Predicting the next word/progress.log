@@ -1,0 +1,20 @@
+DEBUG:root:Completed iteration 1
+DEBUG:root:Completed iteration 2
+DEBUG:root:Completed iteration 3
+DEBUG:root:Completed iteration 1
+DEBUG:root:Completed iteration 2
+DEBUG:root:Completed iteration 1
+DEBUG:root:Completed iteration 2
+DEBUG:root:Completed iteration 1
+DEBUG:root:Completed iteration 2
+DEBUG:root:Completed iteration 1
+DEBUG:root:Completed iteration 2
+DEBUG:root:Completed iteration 1
+DEBUG:root:Completed iteration 2
+ERROR:Comm:No such comm target registered: jupyter.widget.control
+WARNING:Comm:No such comm: 21520a86-4271-41c0-ba88-bcb7470fa167
+DEBUG:Comm:Current comms: []
+DEBUG:root:Completed iteration 1
+DEBUG:root:Completed iteration 2
+DEBUG:Comm:handle_msg[4e47e766-94d9-4c0f-a65f-fe157e453eaa]({'header': {'date': datetime.datetime(2023, 2, 23, 12, 56, 14, 910000, tzinfo=tzutc()), 'msg_id': '0fab11469b0f4f28819450ea531ddaa9', 'username': 'username', 'session': '7e9fcc01e3a74a988b65faf5d13b72ce', 'msg_type': 'comm_msg', 'version': '5.2'}, 'msg_id': '0fab11469b0f4f28819450ea531ddaa9', 'msg_type': 'comm_msg', 'parent_header': {}, 'metadata': {}, 'content': {'comm_id': '4e47e766-94d9-4c0f-a65f-fe157e453eaa', 'data': {'method': 'request_states'}}, 'buffers': []})
+DEBUG:Comm:handle_close[4e47e766-94d9-4c0f-a65f-fe157e453eaa]({'header': {'date': datetime.datetime(2023, 2, 23, 12, 56, 14, 939000, tzinfo=tzutc()), 'msg_id': '4918a55260fa49e28a378addc1453205', 'username': 'username', 'session': '7e9fcc01e3a74a988b65faf5d13b72ce', 'msg_type': 'comm_close', 'version': '5.2'}, 'msg_id': '4918a55260fa49e28a378addc1453205', 'msg_type': 'comm_close', 'parent_header': {}, 'metadata': {}, 'content': {'comm_id': '4e47e766-94d9-4c0f-a65f-fe157e453eaa', 'data': {}}, 'buffers': []})
